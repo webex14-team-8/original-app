@@ -6,20 +6,6 @@
   <router-view />
 </template>
 
-<<<<<<< HEAD
-<script>
-import HelloWorld from "./components/HelloWorld.vue"
-
-export default {
-  name: "App",
-  components: {
-    HelloWorld,
-  },
-}
-</script>
-
-=======
->>>>>>> origin/master
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
