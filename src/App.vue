@@ -2,7 +2,8 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>|
-    <router-link to="/post">投稿</router-link>
+    <router-link to="/post">投稿</router-link>|
+    <router-link to="/show">タイムライン</router-link>
   </nav>
   <router-view />
 </template>

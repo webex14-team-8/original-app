@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div>
+    <h2>災害情報掲示板</h2>
+    <div class="post_form">
       <textarea v-model="text" placeholder="何か書いてみよう"></textarea>
     </div>
     <div>
       <button v-on:click="postTweet">投稿</button>
     </div>
+    <div class="timeline"></div>
   </div>
 </template>
 
@@ -18,7 +20,7 @@ export default {
   },
   methods: {
     postTweet() {
-      alert("まだお待ちを")
+      this.text = ""
     },
   },
 }
