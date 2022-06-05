@@ -4,6 +4,7 @@
     <HelloWorld msg="Welcome to Your Vue.js App" />
     <GoogleMap />
     <p id="mapPos"></p>
+    <p id="mapPos2"></p>
   </div>
 </template>
 
