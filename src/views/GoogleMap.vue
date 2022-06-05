@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Google Map</h1>
-    <div ref="map" style="height: 500px; width: 800px"></div>
+    <div ref="map" style="height: 500px; width: 100%"></div>
   </div>
 </template>
 
@@ -20,16 +20,23 @@ export default {
           center: this.myLatLng,
           zoom: 8,
         });
-
-        new window.google.maps.Marker({
-          position: this.myLatLng,
-          map,
-        });
         new window.google.maps.event.addListener(map, "idle", function(){
           var pos = map.getCenter();
           var lat = pos.lat();
           var lng = pos.lng();
           document.getElementById("mapPos").innerHTML=("緯度："+lat+"、経度："+lng);
+        });
+        map.addListener('click', function(e){
+          var marker = new window.google.maps.Marker({
+            position: e.latLng,
+            map: map,
+            title: e.latLng.toString(),
+            animation: window.google.maps.Animation.DROP,
+          });  
+          marker.addListener('click', function(){
+            this.setMap(null);
+          });
+          document.getElementById("mapPos2").innerHTML=("ピンの座標" + e.latLng)
         });
       }
     }, 500);
