@@ -16,55 +16,77 @@
     <h2>投稿一覧</h2>
     <div v-for="post in posts" :key="post.name">
       <hr />
-      <p>名前：{{ post.fields.name.stringValue }}</p>
-      <p>コメント：{{ post.fields.comment.stringValue }}</p>
+      <p>名前：{{ post.name }}</p>
+      <p>コメント：{{ post.comment }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios"
+import { collection, addDoc, getDocs } from "firebase/firestore"
+import { db } from "@/firebase.js"
 export default {
   data() {
     return {
       name: "",
       comment: "",
-      posts: "",
+      posts: [],
     }
   },
   created() {
     this.getPosts()
   },
   methods: {
-    submitPosts() {
-      axios
-        .post(
-          "https://firestore.googleapis.com/v1/projects/team8-project-8754d/databases/(default)/documents/posts",
-          {
-            fields: {
-              name: {
-                stringValue: this.name,
-              },
-              comment: {
-                stringValue: this.comment,
-              },
-            },
-          }
-        )
-        .then(() => {
-          this.name = ""
-          this.comment = ""
-          this.getPosts()
+    async submitPosts() {
+      // axios
+      //   .post(
+      //     "https://firestore.googleapis.com/v1/projects/team8-project-8754d/databases/(default)/documents/posts",
+      //     {
+      //       fields: {
+      //         name: {
+      //           stringValue: this.name,
+      //         },
+      //         comment: {
+      //           stringValue: this.comment,
+      //         },
+      //       },
+      //     }
+      //   )
+      // .then(() => {
+      //   this.name = ""
+      //   this.comment = ""
+      //   this.getPosts()
+      // })
+      try {
+        const docRef = await addDoc(collection(db, "users"), {
+          name: this.name,
+          comment: this.comment,
         })
+        console.log("Document written with ID: ", docRef.id)
+      } catch (e) {
+        console.error("Error adding document: ", e)
+      }
+      this.posts.push({
+        name: this.name,
+        comment: this.comment,
+      })
     },
-    getPosts() {
-      axios
-        .get(
-          "https://firestore.googleapis.com/v1/projects/team8-project-8754d/databases/(default)/documents/posts"
-        )
-        .then((res) => {
-          this.posts = res.data.documents
+    async getPosts() {
+      //   axios
+      //     .get(
+      //       "https://firestore.googleapis.com/v1/projects/team8-project-8754d/databases/(default)/documents/posts"
+      //     )
+      //     .then((res) => {
+      //       this.posts = res.data.documents
+      //     })
+      const querySnapshot = await getDocs(collection(db, "users"))
+      querySnapshot.forEach((doc) => {
+        this.posts.push({
+          id: doc.id,
+          ...doc.data(),
         })
+        console.log(`${doc.id} => ${doc.data()}`)
+      })
     },
   },
 }
