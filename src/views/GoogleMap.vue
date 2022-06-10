@@ -64,8 +64,7 @@ export default {
       var lng = e.latLng.lng()
       console.log(lat)
       console.log(lng)
-      this.myLatLng.lat = lat
-      this.myLatLng.lng = lng
+      this.myLatLng = {lat, lng}
     },
   },
   //         var pos = map.getCenter()
