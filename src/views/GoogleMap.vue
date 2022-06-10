@@ -20,7 +20,7 @@
       style="width: 100%; height: 500px"
       :center="myLatLng"
       :zoom="15"
-      v-on:click="createMarker(e)"
+      v-on:click="createMarker"
     >
       <Marker :options="{ position: myLatLng }" />
     </GoogleMap>
@@ -59,9 +59,11 @@ export default {
   },
   methods: {
     createMarker(e) {
-      console.log(e.Lat)
-      var lat = e.lat()
-      var lng = e.lng()
+      console.log(e)
+      var lat = e.latLng.lat()
+      var lng = e.latLng.lng()
+      console.log(lat)
+      console.log(lng)
       this.myLatLng.lat = lat
       this.myLatLng.lng = lng
     },
