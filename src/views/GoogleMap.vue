@@ -1,18 +1,13 @@
 <template>
   <div>
-    <!-- <div>
-      <h1>Google Map</h1>
-      <div ref="map" style="height: 500px; width: 100%"></div>
-    </div> -->
     <h2>
       発生確率
-
       <div
         v-for="choice in this.choices"
         v-bind:key="choice.text"
         id="container"
       >
-        {{ choice.text }}: {{ choice.probability }}: {{ choice.value }}
+        {{ choice.text }}: {{ choice.probability }}
       </div>
     </h2>
     <GoogleMap
@@ -59,69 +54,24 @@ export default {
   },
   methods: {
     createMarker(e) {
-      console.log(e)
       var lat = e.latLng.lat()
       var lng = e.latLng.lng()
-      console.log(lat)
-      console.log(lng)
-      this.myLatLng = {lat, lng}
+      this.myLatLng = { lat, lng }
+      for (let i = 0; i < this.choices.length; i++) {
+        // 入力された緯度経度をURLに代入
+        const url = `https://www.j-shis.bosai.go.jp/map/api/pshm/Y2010/AVR/TTL_MTTL/meshinfo.geojson?position=${lng},${lat}&epsg=4301&attr=${this.choices[i].value}`
+        // 確率を出す
+        fetch(url)
+          .then((res) => {
+            return res.json()
+          })
+          .then((data) => {
+            this.choices[i].probability =
+              data.features[0].properties[this.choices[i].value]
+          })
+      }
     },
   },
-  //         var pos = map.getCenter()
-  //         var lat = pos.lat()
-  //         var lng = pos.lng()
-  //         document.getElementById("mapPos").innerHTML =
-  //           "地図中心の" + "緯度：" + lat + "、経度：" + lng
-  //       })
-  // }
-  // mounted() {
-  //   let timer = setInterval(() => {
-  //     if (window.google) {
-  //       clearInterval(timer)
-  //       const map = new window.google.maps.Map(this.$refs.map, {
-  //         center: this.myLatLng,
-  //         zoom: 8,
-  //       })
-  //       new window.google.maps.event.addListener(map, "idle", function () {
-  //         var pos = map.getCenter()
-  //         var lat = pos.lat()
-  //         var lng = pos.lng()
-  //         document.getElementById("mapPos").innerHTML =
-  //           "地図中心の" + "緯度：" + lat + "、経度：" + lng
-  //       })
-  //       map.addListener("click", function (e) {
-  //         var marker = new window.google.maps.Marker({
-  //           position: e.latLng,
-  //           map: map,
-  //           title: e.latLng.toString(),
-  //           animation: window.google.maps.Animation.DROP,
-  //         })
-  //         marker.addListener("click", function () {
-  //           this.setMap(null)
-  //         })
-  //         document.getElementById("mapPos2").innerHTML = "ピンの座標" + e.latLng
-
-  //         for (let i = 0; i < this.choices.length; i++) {
-  //           // 入力された緯度経度をURLに代入
-  //           var lat = e.latLng.lat()
-  //           var lng = e.latLng.lng()
-
-  //           const url = `https://www.j-shis.bosai.go.jp/map/api/pshm/Y2010/AVR/TTL_MTTL/meshinfo.geojson?position=${lng},${lat}&epsg=4301&attr=${this.choices[i].value}`
-  //           console.log(url)
-  //           fetch(url)
-  //             .then((res) => {
-  //               return res.json()
-  //             })
-  //             .then((data) => {
-  //               this.choices[i].probability =
-  //                 data.features[0].properties[this.choices[i].value]
-  //               console.log(this.choices[i].probability)
-  //             })
-  //         }
-  //       })
-  //     }
-  //   }, 500)
-  // },
   components: { GoogleMap, Marker },
 }
 </script>
