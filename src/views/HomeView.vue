@@ -11,7 +11,11 @@
   <div class="bottom">
     <div class="bottom-left">
       <router-link to="/map">地震発生確率を予想する</router-link>
-      <GoogleMap />
+      <!-- <GoogleMap /> -->
+    </div>
+    <div class="bottom-right">
+      <router-link to="/map">地震発生確率を予想する</router-link>
+      <!-- <GoogleMap /> -->
     </div> 
   </div>
 </template>
@@ -21,13 +25,42 @@
   background-image: url(@/assets/earthquake1.jpg);
   background-size: cover;
   background-attachment: fixed;
-  height: 1281px;
+  height: 1000px;
 }
 body {
   margin: 0px;
   -webkit-animation: fadeIn 1.5s ease 0s 1 normal;
   animation: fadeIn 1.5s ease 0s 1 normal;
 }
+
+.bottom {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.bottom-left {
+  background-color: rgb(126, 213, 184);
+  width: 50%;
+  height: 50%;
+  border-radius: 150px;
+  margin: 10px;
+  min-height: 10em;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.bottom-right {
+  background-color: rgb(228, 219, 156);
+  width: 300px;
+  height: 300px;
+  border-radius: 150px;
+  margin: 10px;
+  min-height: 10em;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 
 /* ↓ページ読み込み時フェードイン */
 @keyframes fadeIn {
@@ -52,12 +85,12 @@ body {
 
 <script>
 // @ is an alias to /src
-import GoogleMap from "./GoogleMap.vue"
+// import GoogleMap from "./GoogleMap.vue"
 
 export default {
   name: "HomeView",
   components: {
-    GoogleMap
+    // GoogleMap
 },
 }
 </script>
