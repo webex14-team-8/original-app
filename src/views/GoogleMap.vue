@@ -11,7 +11,7 @@
       </div>
     </h2>
     <GoogleMap
-      api-key="AIzaSyD4APgXbyL76gOgwgmann6oEjl4Q7f9F0g"
+      :api-key="apiKey"
       style="width: 100%; height: 500px"
       :center="myLatLng"
       :zoom="15"
@@ -24,6 +24,7 @@
 
 <script>
 import { GoogleMap, Marker } from "vue3-google-map"
+console.log(process.env.VUE_APP_GOOGLE_API)
 export default {
   data() {
     return {
@@ -50,6 +51,7 @@ export default {
           probability: "",
         },
       ],
+      apiKey: process.env.VUE_APP_GOOGLE_API,
     }
   },
   methods: {
