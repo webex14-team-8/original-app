@@ -1,11 +1,11 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>|
+  <!-- <nav> -->
+    <!-- <router-link to="/">Home</router-link> | -->
+    <!-- <router-link to="/about">About</router-link>| -->
     <router-link to="/post">投稿</router-link>|
-  </nav>
+  <!-- </nav> -->
   <router-view />
-  <GoogleMap />
+  <HomeView />
 </template>
 
 <style>
