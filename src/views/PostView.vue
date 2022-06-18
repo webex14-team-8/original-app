@@ -14,22 +14,24 @@
     <br />
     <br />
     <h2>投稿一覧</h2>
-    <div v-for="post in posts" :key="post.name">
+    <div v-for="(post, n) in posts" :key="post.name">
       <hr />
       <p>名前：{{ post.name }}</p>
       <p>コメント：{{ post.comment }}</p>
+      <button v-on:click="like(n)">{{ post.fav }}：{{ post.favCount }}</button>
     </div>
   </div>
 </template>
 
 <script>
-import { collection, addDoc, getDocs } from "firebase/firestore"
+import { collection, addDoc, getDocs, setDoc, doc } from "firebase/firestore"
 import { db } from "@/firebase.js"
 export default {
   data() {
     return {
       name: "",
       comment: "",
+      fav: "",
       posts: [],
     }
   },
@@ -37,55 +39,61 @@ export default {
     this.getPosts()
   },
   methods: {
+    like(n) {
+      const key = localStorage.getItem(this.posts[n].id)
+      if (key) {
+        localStorage.removeItem(this.posts[n].id)
+        this.posts[n].fav = "♡"
+        this.posts[n].favCount -= 1
+      } else {
+        localStorage.setItem(this.posts[n].id, this.posts[n].id)
+        this.posts[n].fav = "💗"
+        this.posts[n].favCount += 1
+      }
+      setDoc(doc(db, "posts", this.posts[n].id), {
+        name: this.posts[n].name,
+        comment: this.posts[n].comment,
+        favCount: this.posts[n].favCount,
+      })
+    },
+
     async submitPosts() {
-      // axios
-      //   .post(
-      //     "https://firestore.googleapis.com/v1/projects/team8-project-8754d/databases/(default)/documents/posts",
-      //     {
-      //       fields: {
-      //         name: {
-      //           stringValue: this.name,
-      //         },
-      //         comment: {
-      //           stringValue: this.comment,
-      //         },
-      //       },
-      //     }
-      //   )
-      // .then(() => {
-      //   this.name = ""
-      //   this.comment = ""
-      //   this.getPosts()
-      // })
       try {
-        const docRef = await addDoc(collection(db, "users"), {
+        const docRef = await addDoc(collection(db, "posts"), {
           name: this.name,
           comment: this.comment,
+          fav: this.fav,
+          favCount: 0,
+        })
+        this.posts.push({
+          name: this.name,
+          comment: this.comment,
+          fav: "♡",
+          favCount: 0,
+          id: docRef.id,
         })
         console.log("Document written with ID: ", docRef.id)
       } catch (e) {
         console.error("Error adding document: ", e)
       }
-      this.posts.push({
-        name: this.name,
-        comment: this.comment,
-      })
     },
     async getPosts() {
-      //   axios
-      //     .get(
-      //       "https://firestore.googleapis.com/v1/projects/team8-project-8754d/databases/(default)/documents/posts"
-      //     )
-      //     .then((res) => {
-      //       this.posts = res.data.documents
-      //     })
-      const querySnapshot = await getDocs(collection(db, "users"))
+      const querySnapshot = await getDocs(collection(db, "posts"))
       querySnapshot.forEach((doc) => {
-        this.posts.push({
-          id: doc.id,
-          ...doc.data(),
-        })
-        console.log(`${doc.id} => ${doc.data()}`)
+        const key = localStorage.getItem(doc.id)
+        if (key) {
+          this.posts.push({
+            id: doc.id,
+            ...doc.data(),
+            fav: "💗",
+          })
+        } else {
+          this.posts.push({
+            id: doc.id,
+            ...doc.data(),
+            fav: "♡",
+          })
+        }
       })
     },
   },
