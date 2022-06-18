@@ -25,7 +25,7 @@
   background-image: url(@/assets/earthquake1.jpg);
   background-size: cover;
   background-attachment: fixed;
-  height: 1000px;
+  height: 600px;
 }
 body {
   margin: 0px;
