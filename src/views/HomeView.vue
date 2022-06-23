@@ -37,20 +37,17 @@
 
 </template>
 
-<style>
+<style scoped>
+html {
+  background-color: #bccee9;
 
-body {
-  margin: 0px;
+}
+.area {
   -webkit-animation: fadeIn 1.5s ease 0s 1 normal;
   animation: fadeIn 1.5s ease 0s 1 normal;
+  height: auto;
   max-width: 1360px;
-  background-color: #bccee9;
-  /* background: radial-gradient(circle, transparent 20%, #f3fcfa 20%, #f3fcfa 80%, transparent 80%, transparent), */
-  /* radial-gradient(circle, transparent 20%, #f3fcfa 20%, #f3fcfa 80%, transparent 80%, transparent) 50px 50px, */
-  /* linear-gradient(#1abc9c 4px, transparent 4px) 0 -2px, */
-  /* linear-gradient(90deg, #1abc9c 4px, #f3fcfa 4px) -2px 0; */
-  /* background-size: 100px 100px, 100px 100px, 50px 50px, 50px 50px; */
-  /* height: 300px; */
+  /* background-color: #bccee9; */
 }
 
 .upper {
@@ -107,7 +104,7 @@ hr {
 
 .bottom {
   width: 100%;
-  height: 500px;
+  height: 100%;
   padding: 0;
   margin: 0;
   display: flex;
@@ -158,25 +155,28 @@ hr {
 /* ↓メディアクエリ */
 @media screen and (max-width: 950px) {
   .bottom-left {
-    background-color: rgb(126, 213, 184);
-    width: 400px;
-    height: 400px;
-    border-radius: 200px;
+    width: 350px;
+    height: 350px;
+    border-radius: 175px;
     margin: 10px;
-    line-height: 2300%;
+    line-height: 2000%;
   }
 
   .bottom-right {
-    background-color: rgb(228, 219, 156);
-    width: 400px;
-    height: 400px;
-    border-radius: 200px;
+    width: 350px;
+    height: 350px;
+    border-radius: 175px;
     margin: 10px;
-    line-height: 2300%;
+    line-height: 2000%;
   }
+
+  .link {
+    font-size: 20px;
+
+  }
+
   .upper {
   background-image: url(@/assets/earthquakebig3.jpg);
-  
   }
 }
 
@@ -187,8 +187,58 @@ hr {
     height: 230px;
     margin-top: 50px;
   }
-  .upper {
-  
+}
+
+@media screen and (max-width: 700px) {
+  .circles {
+    height: 100em;
+  }
+  .bottom {
+    flex-direction: column;
+    /* justify-content: center; */
+    /* text-align: center; */
+    position: absolute;
+    margin: auto;
+    background-color: #bccee9;
+    height: 620px;
+  }
+  .bottom-left {
+    width: 250px;
+    height: 250px;
+    margin-top: 100px;
+    margin-left: 27%;
+    line-height: 1500%;
+  }
+  .bottom-left p {
+    font-size: 17px;
+  }
+  .bottom-right {
+    width: 250px;
+    height: 250px;
+    margin-left: 27%;
+    line-height: 1500%;
+  }
+  .bottom-right p {
+    font-size: 17px;
+
+  }
+
+  hr {
+    margin-bottom: 0px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+
+body {
+    position: fixed;
+  }
+  .bottom-left {
+    margin-left: 18%;
+    margin-top: 30px;
+  }
+  .bottom-right {
+    margin-left: 18%
   }
 }
 
@@ -203,7 +253,7 @@ hr {
     background: #bccee9;  
     background: -webkit-linear-gradient(to left, #0410e8, #4e54c8);  
     width: 100%;
-    height:100vh;
+    height:100%;
     position: relative;
 }
 
@@ -212,10 +262,11 @@ hr {
     top: 0;
     left: 0;
     width: 100%;
-    height: 1000px;
+    height: 98%;
     overflow: hidden;
     z-index: 1;
     padding: 0px;
+    /* background-color: #bccee9; */
 }
 
 .circles li{

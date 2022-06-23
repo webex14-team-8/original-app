@@ -4,7 +4,9 @@
 </template>
 
 <style>
-
+body {
+  margin: 0px;
+}
 #app {
   font-family: "Helvetica Neue",
     Arial,
@@ -20,7 +22,7 @@
 }
 
 nav {
-  padding: 30px;
+  padding: 0px;
 }
 
 nav a {
