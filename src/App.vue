@@ -34,7 +34,9 @@ nav {
   padding: 30px;
   background-color: aliceblue;
   margin: 0 0 0 auto;
-
+  /* position: absolute; */
+  z-index: 100;
+  padding: 0px;
 }
 
 nav a {
