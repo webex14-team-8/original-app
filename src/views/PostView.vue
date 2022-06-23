@@ -65,6 +65,8 @@ html {
 }
 .box {
   height: auto;
+  position: relative;
+  z-index: 100;
 }
 
 hr {
