@@ -1,11 +1,12 @@
 <template>
-  <!-- <nav> -->
+  <nav>
     <router-link to="/">Home</router-link> |
     <!-- <router-link to="/about">About</router-link>| -->
-    <router-link to="/post">投稿</router-link>|
-  <!-- </nav> -->
+    <router-link to="/post">投稿ページ</router-link>|
+    <router-link to="/map">地震確率予測</router-link>
+  </nav>
   <router-view />
-  <HomeView />
+  <!-- <HomeView /> -->
 </template>
 
 <style>
@@ -19,6 +20,8 @@
 
 nav {
   padding: 30px;
+  background-color: aliceblue;
+  margin: 0 0 0 auto;
 }
 
 nav a {

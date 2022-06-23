@@ -1,24 +1,29 @@
 <template>
   <div>
-    <h2>
-      発生確率
-      <div
-        v-for="choice in this.choices"
-        v-bind:key="choice.text"
-        id="container"
+    <div class="title-container">
+      <h1>地震の発生確率を見てみよう</h1>
+    </div>
+    <p>
+      このページではグーグルマップ上で指定した点の将来の地震発生確率を表示します。<br />
+      あなたの地域の地震発生確率を見てみましょう。
+    </p>
+    <div class="main">
+      <GoogleMap
+        :api-key="apiKey"
+        style="width: 50%; height: 500px"
+        :center="myLatLng"
+        :zoom="15"
+        v-on:click="createMarker"
+        id="map"
       >
-        {{ choice.text }}: {{ choice.probability }}
-      </div>
-    </h2>
-    <GoogleMap
-      :api-key="apiKey"
-      style="width: 100%; height: 500px"
-      :center="myLatLng"
-      :zoom="15"
-      v-on:click="createMarker"
-    >
-      <Marker :options="{ position: myLatLng }" />
-    </GoogleMap>
+        <Marker :options="{ position: myLatLng }" />
+      </GoogleMap>
+      <h2>
+        <div v-for="choice in this.choices" v-bind:key="choice.text">
+          {{ choice.text }}: {{ choice.probability }}
+        </div>
+      </h2>
+    </div>
   </div>
 </template>
 
@@ -79,11 +84,36 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-size: 35px;
+  padding: 1rem 2rem;
+  color: #fff;
+  background: rgb(111, 180, 189);
+  -webkit-box-shadow: 5px 5px 0 #33868a;
+  box-shadow: 5px 5px 0 #4d4b80;
+}
+
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-#map {
-  height: 100%;
+.main {
+  height: 50%;
+  width: 100%;
+  display: flex;
 }
+#map {
+  padding-left: 30px;
+}
+h2 {
+  font-size: 20px;
+  margin: 2em auto;
+  padding: 30px;
+  width: 30%; /*幅の調節*/
+  color: #666666; /*文字色*/
+  background-color: #f7f7f7; /*背景色*/
+  border: 2px solid #ccc; /*線の太さ・色*/
+  border-radius: 8px; /*角の丸み*/
+}
+
 /* Optional: Makes the sample page fill the window. */
 html,
 body {
