@@ -60,7 +60,7 @@ html {
   -webkit-animation: fadeIn 1.5s ease 0s 1 normal;
   animation: fadeIn 1.5s ease 0s 1 normal;
   height: auto;
-  max-width: 1360px;
+  width: 100%;
   /* background-color: #bccee9; */
 }
 .box {
