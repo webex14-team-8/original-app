@@ -239,7 +239,6 @@ hr {
 /* ↓□が出てくるやつ */
 .area {
   background: #bccee9;
-  background: -webkit-linear-gradient(to left, #0410e8, #4e54c8);
   width: 100%;
   height: 100%;
   position: relative;
