@@ -47,6 +47,7 @@
 h1 {
   padding: 0px;
   font-size: 35px;
+  margin: 0px;
   padding: 1rem 2rem;
   color: #fff;
   background: rgb(111, 180, 189);
