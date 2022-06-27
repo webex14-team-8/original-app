@@ -4,6 +4,7 @@
       <div class="title-container">
         <h1>掲示板</h1>
       </div>
+      <br />
       名前
       <div>
         <input type="text" v-model="name" />
@@ -40,6 +41,7 @@
       <li></li>
       <li></li>
     </ul>
+    <br />
   </div>
 </template>
 
