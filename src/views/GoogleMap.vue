@@ -3,10 +3,13 @@
     <div class="title-container">
       <h1>地震の発生確率を見てみよう</h1>
     </div>
-    <p>
-      このページではグーグルマップ上で指定した点の将来の地震発生確率を表示します。<br />
-      あなたの地域の地震発生確率を見てみましょう。
-    </p>
+    <div class="sentenceContainer">
+      <p>
+        このページではグーグルマップ上で指定した点の将来の地震発生確率を表示します。<br />
+        あなたの地域の地震発生確率を見てみましょう。<br />
+        まずはピンを立ててください。今後30年でその地域で大きな地震が起こる確率が分かります。<br />
+      </p>
+    </div>
     <div class="main">
       <div class="map-container">
         <GoogleMap
@@ -22,7 +25,10 @@
       <h2>
         <div class="posibility">
           <div v-for="choice in this.choices" v-bind:key="choice.text">
-            {{ choice.text }}: {{ choice.probability }}
+            <br />
+            <p class="posibilityText">
+              {{ choice.text }}: {{ choice.probability }}%<br />
+            </p>
           </div>
         </div>
       </h2>
@@ -52,25 +58,31 @@ export default {
       choices: [
         {
           value: "T30_I45_PS",
-          text: "今後30年間で震度5弱以上となる確率",
+          text: "震度5弱以上",
           probability: "",
         },
         {
           value: "T30_I50_PS",
-          text: "今後30年間で震度5強以上となる確率",
+          text: "震度5強以上",
           probability: "",
         },
         {
           value: "T30_I55_PS",
-          text: "今後30年間で震度6弱以上となる確率",
+          text: "震度6弱以上",
           probability: "",
         },
         {
           value: "T30_I60_PS",
-          text: "今後30年間で震度6強以上となる確率",
+          text: "震度6強以上",
           probability: "",
         },
       ],
+      // computed: {
+      //   totalPrice: function () {
+      //     this.probability = this.probability.toFixed(1) * 100
+      //     return this.probability
+      //   },
+      // },
       apiKey: process.env.VUE_APP_GOOGLE_API,
     }
   },
@@ -89,7 +101,10 @@ export default {
           })
           .then((data) => {
             this.choices[i].probability =
-              data.features[0].properties[this.choices[i].value]
+              data.features[0].properties[this.choices[i].value] - 0
+            this.choices[i].probability = (
+              this.choices[i].probability * 100
+            ).toFixed(1)
           })
       }
     },
@@ -122,7 +137,8 @@ export default {
   }
   #map {
     padding-left: 30px;
-    margin-bottom: 41px;
+    /* margin-bottom: 41px; */
+    margin: 1em auto;
     width: 100%;
     height: 500px;
   }
@@ -133,6 +149,11 @@ export default {
     height: 50%;
     width: 100%;
   }
+
+  .posibilityText {
+    font-size: 22px;
+  }
+
   h2 {
     font-size: 20px;
     margin: 2em auto;
@@ -292,11 +313,15 @@ export default {
     width: 100%;
     position: relative;
     z-index: 100;
+    padding: 0% 0% 1% 0%;
   }
   #map {
     margin-bottom: 41px;
     width: 100%;
     height: 500px;
+  }
+  .sentenceContainer {
+    padding: 0% 5%;
   }
   .posibility {
     height: 50%;
